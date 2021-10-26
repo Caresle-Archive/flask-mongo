@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, Response
 from pymongo import MongoClient
 from bson import json_util
 from bson.objectid import ObjectId
+from pymongo.collection import ReturnDocument
 
 client = MongoClient()
 db = client["python-db"]
@@ -24,6 +25,20 @@ def create_game():
 	games = db.games
 	games.insert_one(obj)
 	return jsonify({"Game": "Created"})
+
+
+# Update game
+@app.route("/games/<string:id>", methods=["PUT"])
+def update_game(id):
+	obj = request.json
+	games = db.games
+	objDb = games.find_one_and_update(
+					{"_id": ObjectId(id)},
+					{"$set": {"name": obj["name"]}},
+					return_document=ReturnDocument.AFTER
+				)
+	response = json_util.dumps(objDb)
+	return Response(response, mimetype="application/json")
 
 
 # Delete game

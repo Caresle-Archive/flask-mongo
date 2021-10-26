@@ -9,4 +9,12 @@ Content-Type: application/json
 }
 
 ###
+PUT http://localhost:5000/games/61783cfef54821f9ec20cfaf
+Content-Type: application/json
+
+{
+	"name": "Mega Man 3"
+}
+
+###
 DELETE http://localhost:5000/games/6178431a0f93e4f1f77ea1a2
