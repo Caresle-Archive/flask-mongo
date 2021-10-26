@@ -49,6 +49,17 @@ Create a new game like the example below
 }
 ```
 
-DELETE `/games/id`
+PUT `/games/:id`
+
+Update the name of the game. Example below:
+
+```json
+{
+	"name": "New game name"
+}
+```
+
+
+DELETE `/games/:id`
 
 Delete the given element
