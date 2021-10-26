@@ -7,3 +7,6 @@ Content-Type: application/json
 {
 	"name": "Mega Man 5"
 }
+
+###
+DELETE http://localhost:5000/games/1

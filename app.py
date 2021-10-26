@@ -10,11 +10,19 @@ def get_games():
 	return jsonify({"games": games})
 
 
-# Create route
+# Create game
 @app.route("/games", methods=["POST"])
 def create_game():
-	print(len(games))
 	obj = request.json
 	obj["id"] = len(games) + 1
 	games.append(obj)
 	return jsonify(obj)
+
+
+# Delete game
+@app.route("/games/<int:id>", methods=["DELETE"])
+def delete_game(id):
+	for game in games:
+		if game["id"] == id:
+			games.pop(id)
+	return jsonify({})
