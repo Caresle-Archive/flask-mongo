@@ -1,9 +1,9 @@
-GET http://localhost:5000
+GET http://localhost:5000/games
 
 ###
-POST http://localhost:5000
+POST http://localhost:5000/games
 Content-Type: application/json
 
 {
-	"name": "Mega Man 4"
+	"name": "Mega Man 5"
 }
