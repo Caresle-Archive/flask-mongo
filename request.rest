@@ -5,8 +5,8 @@ POST http://localhost:5000/games
 Content-Type: application/json
 
 {
-	"name": "Mega Man 5"
+	"name": "Mega Man 7"
 }
 
 ###
-DELETE http://localhost:5000/games/1
+DELETE http://localhost:5000/games/617841e4ef082c94b9b0ba08

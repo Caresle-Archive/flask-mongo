@@ -1,28 +1,36 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, Response
+from pymongo import MongoClient
+from bson import json_util
+from bson.objectid import ObjectId
 
-from games import games
+client = MongoClient()
+db = client["python-db"]
+
+# from games import games
 
 app = Flask(__name__)
 
 # Get games
 @app.route("/games", methods=["GET"])
 def get_games():
-	return jsonify({"games": games})
+	games = db.games
+	game = games.find()
+	response = json_util.dumps(game)
+	return Response(response, mimetype="application/json")
 
 
 # Create game
 @app.route("/games", methods=["POST"])
 def create_game():
 	obj = request.json
-	obj["id"] = len(games) + 1
-	games.append(obj)
-	return jsonify(obj)
+	games = db.games
+	games.insert_one(obj)
+	return jsonify({"Message": "Created"})
 
 
 # Delete game
-@app.route("/games/<int:id>", methods=["DELETE"])
+@app.route("/games/<string:id>", methods=["DELETE"])
 def delete_game(id):
-	for game in games:
-		if game["id"] == id:
-			games.pop(id)
+	games = db.games
+	games.delete_one({"_id": ObjectId(id)})
 	return jsonify({})
