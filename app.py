@@ -6,8 +6,6 @@ from bson.objectid import ObjectId
 client = MongoClient()
 db = client["python-db"]
 
-# from games import games
-
 app = Flask(__name__)
 
 # Get games
@@ -25,7 +23,7 @@ def create_game():
 	obj = request.json
 	games = db.games
 	games.insert_one(obj)
-	return jsonify({"Message": "Created"})
+	return jsonify({"Game": "Created"})
 
 
 # Delete game
@@ -33,4 +31,6 @@ def create_game():
 def delete_game(id):
 	games = db.games
 	games.delete_one({"_id": ObjectId(id)})
-	return jsonify({})
+	response = jsonify({"message": "Game:" + id + "deleted"})
+	response.status_code = 204
+	return response
